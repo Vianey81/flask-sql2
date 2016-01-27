@@ -11,10 +11,12 @@ def get_student():
 
     github = request.args.get('github', 'sdevelops')
     first, last, github = hackbright.get_student_by_github(github)
+    title_grades = hackbright.get_grades_by_github(github)
     html = render_template("student_info.html",
                            first=first,
                            last=last,
-                           github=github)
+                           github=github,
+                           projects=title_grades)
     return html
 
 
