@@ -51,11 +51,19 @@ def project_info():
 
     title = request.args.get('title', 'Markov')
     title, description, grade = hackbright.get_project_by_title(title)
+    name_grade = []
+    students = hackbright.get_grades_by_title(title)
+    for student in students:
+        name, last_name, github = hackbright.get_student_by_github(student[0])
+        grade = student[1]
+        name_grade.append((name, last_name, grade, github))
 
     return render_template("project.html",
                             title=title,
                             description=description,
-                            max_grade=grade)
+                            max_grade=grade,
+                            students=name_grade,
+                            )
 
 if __name__ == "__main__":
     hackbright.connect_to_db(app)
