@@ -5,6 +5,21 @@ import hackbright
 app = Flask(__name__)
 
 
+@app.route("/")
+def get_all_info():
+    """Show main page.
+    Make a homepage that has two lists – one for all students, and one for all projects. Both should be bulleted lists and both should be made up live links to the full student and project pages.
+
+    """
+
+    students = hackbright.get_students()
+    projects = hackbright.get_projects()
+    return render_template("home.html",
+                           students=students,
+                           projects=projects,
+                           )
+
+
 @app.route("/student")
 def get_student():
     """Show information about a student."""
